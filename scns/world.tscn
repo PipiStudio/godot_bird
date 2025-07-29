@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn7goietih4fx"]
+
+[ext_resource type="Script" uid="uid://bi65xiehlhrjs" path="res://scripts/world.gd" id="1_j2b2x"]
+[ext_resource type="PackedScene" uid="uid://cann5gbjwc487" path="res://scns/bird.tscn" id="1_lwxtd"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_j2b2x")
+
+[node name="Bird" parent="." instance=ExtResource("1_lwxtd")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="TubeCountdown" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="TubeCountdown" to="." method="_on_tube_countdown_timeout"]

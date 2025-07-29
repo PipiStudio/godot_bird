@@ -1,0 +1,112 @@
+[gd_scene load_steps=8 format=3 uid="uid://cann5gbjwc487"]
+
+[ext_resource type="Texture2D" uid="uid://wqhw3q81ecgf" path="res://assets/Spritesheet/spritesheet_double.png" id="1_asc0b"]
+[ext_resource type="Script" uid="uid://c04fh7b2eia7e" path="res://scripts/bird.gd" id="1_c4wjk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4wjk"]
+size = Vector2(126, 128)
+
+[sub_resource type="Animation" id="Animation_c4wjk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Face:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_asc0b")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Face:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(800, 772, 108, 80)]
+}
+
+[sub_resource type="Animation" id="Animation_asc0b"]
+resource_name = "idle"
+length = 0.3
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Face:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_asc0b")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Face:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(800, 772, 108, 80), Rect2(800, 852, 108, 66), Rect2(800, 700, 110, 72)]
+}
+
+[sub_resource type="Animation" id="Animation_3qnqv"]
+resource_name = "jump"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Face:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_asc0b")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3qnqv"]
+_data = {
+&"RESET": SubResource("Animation_c4wjk"),
+&"idle": SubResource("Animation_asc0b"),
+&"jump": SubResource("Animation_3qnqv")
+}
+
+[node name="Bird" type="CharacterBody2D"]
+script = ExtResource("1_c4wjk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_c4wjk")
+
+[node name="Texure" type="Node" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3qnqv")
+}
+
+[node name="Body" type="Sprite2D" parent="."]
+texture = ExtResource("1_asc0b")
+region_enabled = true
+region_rect = Rect2(0, 296, 160, 160)
+
+[node name="Face" type="Sprite2D" parent="."]
+texture = ExtResource("1_asc0b")
+region_enabled = true
+region_rect = Rect2(800, 772, 108, 80)
