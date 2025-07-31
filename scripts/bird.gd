@@ -52,14 +52,16 @@ func change_state():
         STATE.IDLE:
             if velocity.y <= 0:
                 current_state = STATE.JUMP
+            if is_hurt:
+                current_state = STATE.HURT
         STATE.JUMP:
             if velocity.y > 0:
                 current_state = STATE.IDLE
+            if is_hurt:
+                current_state = STATE.HURT
         STATE.HURT:
             if not is_hurt:
                 current_state = STATE.IDLE
             if health <= 0:
                 current_state = STATE.DEAD
-        STATE.IDLE, STATE.JUMP:
-            if is_hurt:
-                current_state = STATE.HURT
+        
