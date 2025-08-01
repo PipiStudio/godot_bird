@@ -9,9 +9,11 @@ enum STATE{
 
 @export var default_jump_force = 300
 @export var is_hurt = false
+@onready var world = $"../"
 
 var health = 3
 var jump_force = default_jump_force
+
 
 var current_state: STATE = STATE.IDLE
 
@@ -23,7 +25,7 @@ func _physics_process(delta: float) -> void:
 
 
     # 跳跃逻辑
-    if Input.is_action_just_pressed("jump"):
+    if Input.is_action_just_pressed("jump") and world.is_running:
         velocity.y = -jump_force
     else:
         velocity.y += get_gravity().y * delta * 0.5
@@ -33,13 +35,13 @@ func _physics_process(delta: float) -> void:
             animation_player.play("idle")
             jump_force = 1.25 * default_jump_force
         STATE.JUMP:
-            print(111)
             animation_player.play("jump")
             jump_force = default_jump_force
         STATE.HURT:
             animation_player.play("hurt")
         STATE.DEAD:
-            queue_free()
+            world.is_running = false
+            animation_player.play("dead")
             
     move_and_slide()
 
