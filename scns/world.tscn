@@ -1,12 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://dn7goietih4fx"]
+[gd_scene load_steps=6 format=3 uid="uid://dn7goietih4fx"]
 
 [ext_resource type="Script" uid="uid://bi65xiehlhrjs" path="res://scripts/world.gd" id="1_j2b2x"]
 [ext_resource type="PackedScene" uid="uid://cann5gbjwc487" path="res://scns/bird.tscn" id="1_lwxtd"]
+[ext_resource type="Texture2D" uid="uid://cs16a4gv1tvg3" path="res://assets/kenney_ui-pack/PNG/Blue/Double/button_round_flat.png" id="3_1pwqk"]
+[ext_resource type="Theme" uid="uid://1bt1e7gwkxv5" path="res://ui/theme.tres" id="3_5ra7a"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5ra7a"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_j2b2x")
 
 [node name="Bird" parent="." instance=ExtResource("1_lwxtd")]
+position = Vector2(-500, 0)
 default_jump_force = 300
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -16,4 +21,65 @@ zoom = Vector2(0.5, 0.5)
 wait_time = 2.0
 autostart = true
 
+[node name="Deadline" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deadline"]
+position = Vector2(-68, 663)
+shape = SubResource("WorldBoundaryShape2D_5ra7a")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_5ra7a")
+text = "You died!"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ReplayButton" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_5ra7a")
+text = "Replay"
+icon = ExtResource("3_1pwqk")
+flat = true
+icon_alignment = 1
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_5ra7a")
+text = "Menu"
+icon = ExtResource("3_1pwqk")
+flat = true
+icon_alignment = 1
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="Score" type="Label" parent="CanvasLayer2"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 117.0
+offset_bottom = 33.0
+theme = ExtResource("3_5ra7a")
+text = "Score:0"
+
 [connection signal="timeout" from="TubeCountdown" to="." method="_on_tube_countdown_timeout"]
+[connection signal="body_entered" from="Deadline" to="." method="_on_deadline_body_entered"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer/ReplayButton" to="." method="_on_replay_button_pressed"]
