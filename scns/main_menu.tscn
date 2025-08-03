@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://b5dpq2ter7ly1"]
+
+[ext_resource type="Theme" uid="uid://1bt1e7gwkxv5" path="res://ui/theme.tres" id="1_2nldw"]
+[ext_resource type="Script" uid="uid://djqq4h40c1qkn" path="res://scripts/main_menu.gd" id="1_g3hh2"]
+[ext_resource type="Texture2D" uid="uid://hiu8bhqa0g87" path="res://assets/kenney_ui-pack/PNG/Blue/Double/button_rectangle_flat.png" id="2_hid0j"]
+[ext_resource type="Texture2D" uid="uid://wqhw3q81ecgf" path="res://assets/Spritesheet/spritesheet_double.png" id="4_lpyoq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpyoq"]
+atlas = ExtResource("4_lpyoq")
+region = Rect2(1050, 772, 64, 76)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cid7"]
+atlas = ExtResource("4_lpyoq")
+region = Rect2(1058, 646, 56, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0aeqb"]
+atlas = ExtResource("4_lpyoq")
+region = Rect2(960, 218, 70, 68)
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_g3hh2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_2nldw")
+theme_override_font_sizes/font_size = 30
+text = "Godot Bird"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_2nldw")
+theme_override_font_sizes/font_size = 30
+text = "Start"
+icon = ExtResource("2_hid0j")
+flat = true
+icon_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_2nldw")
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "肉身成圣"
+popup/item_0/icon = SubResource("AtlasTexture_lpyoq")
+popup/item_0/id = 0
+popup/item_1/text = "生生不息"
+popup/item_1/icon = SubResource("AtlasTexture_7cid7")
+popup/item_1/id = 2
+popup/item_2/text = "无"
+popup/item_2/icon = SubResource("AtlasTexture_0aeqb")
+popup/item_2/id = 1
+
+[node name="SpritesheetDouble" type="Sprite2D" parent="."]
+position = Vector2(81, 523)
+texture = ExtResource("4_lpyoq")
+region_enabled = true
+region_rect = Rect2(160, 936, 160, 158)
+
+[node name="SpritesheetDouble2" type="Sprite2D" parent="."]
+position = Vector2(81, 363)
+texture = ExtResource("4_lpyoq")
+region_enabled = true
+region_rect = Rect2(160, 936, 160, 158)
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="item_selected" from="CanvasLayer/VBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
