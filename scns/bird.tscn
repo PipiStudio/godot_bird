@@ -320,3 +320,9 @@ region_rect = Rect2(0, 296, 160, 160)
 texture = ExtResource("1_asc0b")
 region_enabled = true
 region_rect = Rect2(800, 772, 108, 80)
+
+[node name="SkillTimer" type="Timer" parent="."]
+wait_time = 16.0
+autostart = true
+
+[connection signal="timeout" from="SkillTimer" to="." method="_on_skill_timer_timeout"]

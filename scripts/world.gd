@@ -3,7 +3,8 @@ extends Node2D
 @onready var tube_countdown = $TubeCountdown
 @onready var canvas = $CanvasLayer
 @onready var label = $CanvasLayer/VBoxContainer/Label
-@onready var score_text = $CanvasLayer2/Score
+@onready var score_text = $CanvasLayer2/VBoxContainer/Score
+@onready var health_bar = $CanvasLayer2/VBoxContainer/HealthBar
 
 @export var is_running:bool = true
 @export var tube = preload("res://scns/tube.tscn")
@@ -13,10 +14,25 @@ var score: int = 0:
 		score = value
 		score_text.text = "Score:" + str(score)
 
+var is_highest_score = false
+
+func _ready() -> void:
+	health_bar.max_value = $Bird.health
+
 func _process(_delta: float) -> void:
 	if not is_running:
 		canvas.show()
-		label.text  = "You died!Your score is " + str(score)
+		var config = ConfigFile.new()
+		config.load("user://config.cfg")
+		if !is_highest_score:
+			label.text  = "You died!Your score is " + str(score)
+		if score > config.get_value("Game","high_score"):
+			is_highest_score = true
+			config.set_value("Game","high_score",score)
+			config.save("user://config.cfg")
+			label.text  = "You improve the highest score!Your score is " + str(score)
+			print("fuck fuck fuck")
+			
 	if score > 60 and score <= 200:
 		tube_countdown.wait_time = 1.5
 	elif score > 200 and score <= 300:
@@ -57,3 +73,6 @@ func _on_deadline_body_entered(body:Node2D) -> void:
 
 func _on_replay_button_pressed() -> void:
 	get_tree().reload_current_scene()
+
+func _on_main_menu_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scns/main_menu.tscn")
