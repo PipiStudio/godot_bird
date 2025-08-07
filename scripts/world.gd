@@ -5,6 +5,7 @@ extends Node2D
 @onready var label = $CanvasLayer/VBoxContainer/Label
 @onready var score_text = $CanvasLayer2/VBoxContainer/Score
 @onready var health_bar = $CanvasLayer2/VBoxContainer/HealthBar
+@onready var bird = $Bird
 
 @export var is_running:bool = true
 @export var tube = preload("res://scns/tube.tscn")
@@ -17,22 +18,11 @@ var score: int = 0:
 var is_highest_score = false
 
 func _ready() -> void:
-	health_bar.max_value = $Bird.health
+	health_bar.max_value = bird.health
+	bird.connect("hurt",_update_health_bar)
+	bird.connect("die",_game_over)
 
 func _process(_delta: float) -> void:
-	if not is_running:
-		canvas.show()
-		var config = ConfigFile.new()
-		config.load("user://config.cfg")
-		if !is_highest_score:
-			label.text  = "You died!Your score is " + str(score)
-		if score > config.get_value("Game","high_score"):
-			is_highest_score = true
-			config.set_value("Game","high_score",score)
-			config.save("user://config.cfg")
-			label.text  = "You improve the highest score!Your score is " + str(score)
-			print("fuck fuck fuck")
-			
 	if score > 60 and score <= 200:
 		tube_countdown.wait_time = 1.5
 	elif score > 200 and score <= 300:
@@ -76,3 +66,20 @@ func _on_replay_button_pressed() -> void:
 
 func _on_main_menu_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scns/main_menu.tscn")
+
+func _update_health_bar(new_value):
+	health_bar.value = new_value
+
+func _game_over():
+	is_running = false
+	canvas.show()
+	var config = ConfigFile.new()
+	config.load("user://config.cfg")
+	if !is_highest_score:
+		label.text  = "You died!Your score is " + str(score)
+	if score > config.get_value("Game","high_score"):
+		is_highest_score = true
+		config.set_value("Game","high_score",score)
+		config.save("user://config.cfg")
+		label.text  = "You improve the highest score!Your score is " + str(score)
+		print("fuck fuck fuck")
