@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5dpq2ter7ly1"]
+[gd_scene load_steps=9 format=3 uid="uid://cwdkj6hvd1054"]
 
 [ext_resource type="Theme" uid="uid://1bt1e7gwkxv5" path="res://ui/theme.tres" id="1_2nldw"]
 [ext_resource type="Script" uid="uid://djqq4h40c1qkn" path="res://scripts/main_menu.gd" id="1_g3hh2"]
@@ -12,6 +12,10 @@ region = Rect2(1050, 772, 64, 76)
 [sub_resource type="AtlasTexture" id="AtlasTexture_7cid7"]
 atlas = ExtResource("4_lpyoq")
 region = Rect2(1058, 646, 56, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_df6pn"]
+atlas = ExtResource("4_lpyoq")
+region = Rect2(982, 852, 68, 72)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0aeqb"]
 atlas = ExtResource("4_lpyoq")
@@ -57,16 +61,19 @@ layout_mode = 2
 theme = ExtResource("1_2nldw")
 alignment = 1
 selected = 0
-item_count = 3
+item_count = 4
 popup/item_0/text = "肉身成圣"
 popup/item_0/icon = SubResource("AtlasTexture_lpyoq")
 popup/item_0/id = 0
 popup/item_1/text = "生生不息"
 popup/item_1/icon = SubResource("AtlasTexture_7cid7")
-popup/item_1/id = 2
-popup/item_2/text = "无"
-popup/item_2/icon = SubResource("AtlasTexture_0aeqb")
-popup/item_2/id = 1
+popup/item_1/id = 1
+popup/item_2/text = "威震八方"
+popup/item_2/icon = SubResource("AtlasTexture_df6pn")
+popup/item_2/id = 2
+popup/item_3/text = "无"
+popup/item_3/icon = SubResource("AtlasTexture_0aeqb")
+popup/item_3/id = 3
 
 [node name="SpritesheetDouble" type="Sprite2D" parent="."]
 position = Vector2(81, 523)

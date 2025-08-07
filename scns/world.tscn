@@ -24,7 +24,7 @@ autostart = true
 [node name="Deadline" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Deadline"]
-position = Vector2(-68, 663)
+position = Vector2(-68, 690.96)
 shape = SubResource("WorldBoundaryShape2D_5ra7a")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="godot_bird"
-run/main_scene="uid://b5dpq2ter7ly1"
+run/main_scene="uid://cwdkj6hvd1054"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
