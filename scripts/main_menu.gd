@@ -3,6 +3,7 @@ extends Node2D
 @onready var start_button = $CanvasLayer/VBoxContainer/StartButton
 @onready var config = ConfigFile.new()
 @onready var option_button = $CanvasLayer/VBoxContainer/OptionButton
+@onready var high_score_lable = $CanvasLayer/VBoxContainer/HighScore
 
 func start_game():
 	get_tree().change_scene_to_file("res://scns/world.tscn")
@@ -33,6 +34,7 @@ func _ready() -> void:
 
 	# 现在确保 config 里有数据了，可以读取 skill
 	var current_skill = config.get_value("Game", "skill", 0)
+	high_score_lable.text = "当前最高分:" + str(config.get_value("Game", "high_score", 0))
 	option_button.selected = int(current_skill)
 	print("当前 skill 等级：", current_skill)
 	print(config.get_value("Game","high_score"))

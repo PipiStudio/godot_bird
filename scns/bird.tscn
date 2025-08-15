@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://cann5gbjwc487"]
+[gd_scene load_steps=13 format=3 uid="uid://cann5gbjwc487"]
 
 [ext_resource type="Texture2D" uid="uid://wqhw3q81ecgf" path="res://assets/Spritesheet/spritesheet_double.png" id="1_asc0b"]
 [ext_resource type="Script" uid="uid://c04fh7b2eia7e" path="res://scripts/bird.gd" id="1_c4wjk"]
-[ext_resource type="AudioStream" uid="uid://8orkgvs3h71l" path="res://assets/kenney_impact-sounds/Audio/impactMetal_heavy_001.ogg" id="3_3qnqv"]
+[ext_resource type="AudioStream" uid="uid://drnttft72fi78" path="res://assets/kenney_impact-sounds/Audio/impactGeneric_light_001.ogg" id="3_d64tr"]
 [ext_resource type="AudioStream" uid="uid://c047npps45q0" path="res://assets/kenney_impact-sounds/Audio/impactPunch_medium_002.ogg" id="4_d64tr"]
+[ext_resource type="AudioStream" uid="uid://clbqjji3aqb3m" path="res://assets/kenney_impact-sounds/Audio/impactMining_001.ogg" id="5_pxgut"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c4wjk"]
 size = Vector2(126, 128)
@@ -327,9 +328,12 @@ region_rect = Rect2(800, 772, 108, 80)
 wait_time = 16.0
 
 [node name="JumpAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_3qnqv")
+stream = ExtResource("3_d64tr")
 
 [node name="HurtAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_d64tr")
+
+[node name="HealAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_pxgut")
 
 [connection signal="timeout" from="SkillTimer" to="." method="_on_skill_timer_timeout"]

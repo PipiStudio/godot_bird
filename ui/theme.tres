@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=4 format=3 uid="uid://1bt1e7gwkxv5"]
 
-[ext_resource type="FontFile" uid="uid://c6fp6wvkqlwiu" path="res://assets/kenney_ui-pack/Font/Kenney Future.ttf" id="1_rqugq"]
+[ext_resource type="FontFile" uid="uid://cmg484p01p1wh" path="res://assets/wqy-zenhei.ttc" id="1_jf26r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rqugq"]
 bg_color = Color(1, 0, 0, 1)
@@ -12,11 +12,11 @@ bg_color = Color(0.6, 1, 0.6, 1)
 Button/colors/icon_hover_color = Color(0.396889, 0.396889, 0.396889, 1)
 Button/colors/icon_hover_pressed_color = Color(0.255659, 0.255659, 0.255659, 1)
 Button/font_sizes/font_size = 18
-Button/fonts/font = ExtResource("1_rqugq")
+Button/fonts/font = ExtResource("1_jf26r")
 Label/font_sizes/font_size = 20
-Label/fonts/font = ExtResource("1_rqugq")
+Label/fonts/font = ExtResource("1_jf26r")
 ProgressBar/colors/font_color = Color(0, 0, 0, 1)
 ProgressBar/font_sizes/font_size = 20
-ProgressBar/fonts/font = ExtResource("1_rqugq")
+ProgressBar/fonts/font = ExtResource("1_jf26r")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_rqugq")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_jf26r")
