@@ -13,13 +13,14 @@ extends Node2D
 var score: int = 0:
 	set(value):
 		score = value
-		score_text.text = "Score:" + str(score)
+		score_text.text = "分数:" + str(score)
 
 var is_highest_score = false
 
 func _ready() -> void:
 	health_bar.max_value = bird.health
-	bird.connect("hurt",_update_health_bar)
+	bird.connect("hurt",_pending_hurt)
+	bird.connect("heal",_pending_heal)
 	bird.connect("die",_game_over)
 
 func _process(_delta: float) -> void:
@@ -53,6 +54,7 @@ func _on_tube_countdown_timeout() -> void:
 func create_new_tube(new_position: Vector2):
 	var new_tube: Area2D
 	new_tube = tube.instantiate()
+	new_tube.connect("score_add",_add_score)
 	new_tube.position = new_position
 	add_child(new_tube)
 
@@ -67,7 +69,12 @@ func _on_replay_button_pressed() -> void:
 func _on_main_menu_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scns/main_menu.tscn")
 
-func _update_health_bar(new_value):
+func _pending_heal(new_value):
+	bird.heal_audio.play()
+	health_bar.value = new_value
+
+func _pending_hurt(new_value):
+	bird.hurt_audio.play()
 	health_bar.value = new_value
 
 func _game_over():
@@ -76,10 +83,13 @@ func _game_over():
 	var config = ConfigFile.new()
 	config.load("user://config.cfg")
 	if !is_highest_score:
-		label.text  = "You died!Your score is " + str(score)
+		label.text  = "你死了！你的分数是" + str(score)
 	if score > config.get_value("Game","high_score"):
 		is_highest_score = true
 		config.set_value("Game","high_score",score)
 		config.save("user://config.cfg")
-		label.text  = "You improve the highest score!Your score is " + str(score)
-		print("fuck fuck fuck")
+		label.text  = "你突破了最高分！你的分数是" + str(score)
+
+func _add_score(tube_remove):
+	score += 1
+	tube_remove.queue_free()

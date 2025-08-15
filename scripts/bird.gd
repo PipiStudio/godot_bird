@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal hurt(new_value)
+signal heal(new_value)
 signal die
 
 enum STATE {
@@ -15,13 +16,20 @@ enum STATE {
 @onready var skill_timer = $SkillTimer
 @onready var jump_audio = $JumpAudio
 @onready var hurt_audio = $HurtAudio
+@onready var heal_audio = $HealAudio
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 @export var health = 3:
 	set(value):
+
+		# 根据情况判断应该让World处理Hurt还是Heal信号
+
+		if value > health:
+			heal.emit(value)
+		else:
+			hurt.emit(value)
 		health = value
-		hurt_audio.play()
-		hurt.emit(health)
+
 var jump_force = default_jump_force
 
 var current_state: STATE = STATE.IDLE

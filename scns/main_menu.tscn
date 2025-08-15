@@ -44,14 +44,20 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("1_2nldw")
 theme_override_font_sizes/font_size = 30
-text = "Godot Bird"
+text = "小鸟快飞"
+horizontal_alignment = 1
+
+[node name="HighScore" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_2nldw")
+theme_override_colors/font_color = Color(0.82458, 0.563019, 0, 1)
 horizontal_alignment = 1
 
 [node name="StartButton" type="Button" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_2nldw")
 theme_override_font_sizes/font_size = 30
-text = "Start"
+text = "开始游戏"
 icon = ExtResource("2_hid0j")
 flat = true
 icon_alignment = 1
@@ -74,6 +80,14 @@ popup/item_2/id = 2
 popup/item_3/text = "无"
 popup/item_3/icon = SubResource("AtlasTexture_0aeqb")
 popup/item_3/id = 3
+
+[node name="Description" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_2nldw")
+text = "肉身成圣:血量大幅增加
+生生不息:获得自回血能力，无上限
+威震八方:碰撞点缩小"
+horizontal_alignment = 1
 
 [node name="SpritesheetDouble" type="Sprite2D" parent="."]
 position = Vector2(81, 523)
